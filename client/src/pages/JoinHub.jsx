@@ -99,7 +99,7 @@ const JoinHub = () => {
                   onChange={(e) => setInputVal(e.target.value)}
                   required
                 />
-                <p className="text-[10px] text-gray-500 mt-2 ml-1 font-mono uppercase tracking-tighter italic">
+                <p className="text-[10px] text-gray-00 mt-2 ml-1 font-mono uppercase tracking-tighter italic">
                   {mode === 'staff' && "// Check with your lead for the 4-digit PIN"}
                   {mode === 'manager' && "// Enter the secret code generated at creation"}
                   {mode === 'create' && "// Temporary hub will expire in 24 hours"}

@@ -1,50 +1,98 @@
-# Taglay ng Alumni: From Mind to Machine
+# QuickTask ⚡ | Taglay 2025
 
-Event site for the From Mind to Machine alumni mentorship series. The app pairs a React + Vite front end with an Express + MongoDB API for user management and article-driven content.
+**QuickTask** is a high-performance, ephemeral task management system designed for fast-paced, real-time coordination. Built as a specialized demonstration for the **Taglay 2025** webinar, it eliminates the friction of traditional project management tools by removing the need for permanent accounts and complex setup.
 
-![From Mind to Machine event poster](client/public/images/alumni-event-cover.png)
+## 🚀 Purpose of Development
+Developed specifically for **Taglay 2025**, QuickTask serves as a demonstration of a modern MERN stack application focusing on:
+* **Zero-Friction UX**: No signups or logins; instant access via 4-digit PIN.
+* **Real-Time State Sync**: Immediate feedback across all connected clients using MongoDB updates.
+* **Ephemeral Data**: Hubs are designed to be temporary, serving as a "digital clipboard" that exists only as long as the event requires.
+* **Proof of Work**: A specialized protocol requiring staff to provide verification notes for critical tasks.
 
-![Cyrus Robles — Resource Person](client/public/images/cyrus-robles.png)
+## 🛠 Tech Stack
+* **Frontend**: React.js (Vite)
+* **Styling**: Tailwind CSS (Liquid Glass aesthetic)
+* **Animation**: Framer Motion
+* **Backend**: Node.js & Express
+* **Database**: MongoDB Atlas
+* **API**: Axios for client-server communication
 
-## What's inside
-- `client/` React single-page app (home, about, articles, detail, 404).
-- `server/` Express API for users and articles with JWT-based login.
-- `client/public/images/` Event poster and mentor portraits referenced by the UI.
+## 📖 Key Features
+* **Three-Way Access Toggle**: Dedicated entry paths for Staff, Managers, and Hub Creation.
+* **Verification Protocol**: Mandatory completion notes for accountability.
+* **Visual Progress Tracking**: Real-time progress bars and status badges.
+* **Sandbox Mode**: An interactive, local-state tutorial to test features without database persistence.
 
-## Requirements
-- Node 18+ and npm
-- MongoDB instance (local or Atlas)
+---
 
-## Environment variables
-- `server/.env`
-  - `MONGO_URI=<your Mongo connection string>`
-  - `JWT_SECRET=<token signing secret>`
-  - `PORT=5000` (optional)
-- `client/.env`
-  - `VITE_LOCAL_HOST=http://localhost:5000` (or your deployed API URL)
+## 🛠 Installation & Setup
 
-## Local setup
-1) Backend (API)
-- `cd server && npm install`
-- Start dev server: `npm run dev` (or `npm start` for plain node)
-- API surface:
-  - `GET/POST /api/users`, `PUT/DELETE /api/users/:id`
-  - `POST /api/users/login` (returns JWT, enforces active users)
-  - `GET /api/articles`, `GET /api/articles/:name`
-  - `POST /api/articles`, `PUT /api/articles/:id`, `PATCH /api/articles/:id/toggle`
+Follow these steps to run the project on your own machine after forking.
 
-2) Frontend (Vite)
-- `cd client && npm install`
-- Run locally: `npm run dev` (use printed local URL)
-- Build: `npm run build`
-- Preview built assets: `npm run preview`
+### 1. Prerequisites
+* Node.js (v18+ recommended)
+* MongoDB Atlas Account
 
-## Customizing content
-- Hero/about copy: `client/src/pages/HomePage.jsx` and `client/src/pages/AboutPage.jsx`.
-- Articles: `client/src/article-content.js` (titles, slugs, and body copy).
-- Styling tokens: `client/src/index.css` for colors/typography; component styles live in `client/src/styles/`.
-- Images: drop new assets in `client/public/` and update `<img src="/your-file-name.ext" />` references.
+### 2. Clone the Repository
+```bash
+git clone [https://github.com/YOUR_USERNAME/taglay-tamparong.git](https://github.com/YOUR_USERNAME/taglay-tamparong.git)
+cd taglay-tamparong
+3. Backend Setup
+Navigate to the server directory: cd server
 
-## Deployment notes
-- Frontend: build from `client/` and deploy the `dist` output (Netlify/Vercel/static hosting).
-- Backend: run `server/` on your host with the `.env` values configured; ensure `VITE_LOCAL_HOST` points at the deployed API.
+Install dependencies: npm install
+
+Create a .env file in the server folder and add your credentials:
+
+Code snippet
+
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+Start the server: npm run dev
+
+4. Frontend Setup
+Navigate to the client directory: cd ../client
+
+Install dependencies: npm install
+
+Start the development server: npm run dev
+
+5. Network Access (Crucial)
+If using MongoDB Atlas, ensure you have whitelisted your IP address in the MongoDB Atlas Network Access settings (or set to 0.0.0.0/0 for testing) to avoid connection errors.
+
+📁 Folder Structure
+Plaintext
+
+src/
+├── components/
+│   ├── ui/                # Glassmorphism atomic components
+│   ├── HubStats.jsx       # Real-time progress visualizer
+│   └── TutorialOverlay.jsx # Interactive popup guide
+├── pages/
+│   ├── Landing.jsx        # Two-column hero & feature highlights
+│   ├── JoinHub.jsx         # 3-way access control (Staff, Manager, Create)
+│   ├── Dashboard.jsx      # Main coordination engine
+│   ├── TaskDetails.jsx    # Proof-of-work submission
+│   └── TutorialPage.jsx   # Sandbox environment with "Go Back" logic
+└── App.jsx                # Router configuration
+🔒 Security & Git Best Practices
+Ensure your .gitignore is present in the root to prevent pushing sensitive data:
+
+Plaintext
+
+# node_modules
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Environment Variables
+.env
+server/.env
+
+# Production Build
+client/dist/
+
+# OS Files
+.DS_Store
+👨‍💻 Author
+Dhan-T - Computer Science Student (ML Specialization) Developed for Taglay 2025
