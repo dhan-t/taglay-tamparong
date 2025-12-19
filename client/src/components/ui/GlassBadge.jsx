@@ -9,13 +9,16 @@ const GlassBadge = ({ status }) => {
     staff: "bg-gray-500/20 text-gray-300 border-gray-500/30",
   };
 
+  // Safe fallback if status is missing
+  const safeStatus = status ? status.toLowerCase() : 'staff';
+
   return (
     <span className={`
       px-3 py-1 rounded-full text-xs font-medium 
       border backdrop-blur-md
-      ${styles[status] || styles.staff}
+      ${styles[safeStatus] || styles.staff}
     `}>
-      {status.toUpperCase().replace('-', ' ')}
+      {safeStatus.toUpperCase().replace('-', ' ')}
     </span>
   );
 };
