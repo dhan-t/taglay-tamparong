@@ -7,15 +7,19 @@ const hubSchema = new mongoose.Schema({
     unique: true,
     trim: true
   },
+  adminCode: { 
+    type: String,
+    required: true, 
+    unique: true
+  },
   name: {
     type: String,
-    required: true,
-    default: "New Event Hub"
+    required: true
   },
   createdAt: {
     type: Date,
     default: Date.now,
-    expires: 86400 // TTL Index: Auto-deletes doc after 24 hours (86400 seconds)
+    expires: 86400 // 24 hours
   }
 });
 

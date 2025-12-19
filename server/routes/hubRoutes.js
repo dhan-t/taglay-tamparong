@@ -3,6 +3,6 @@ const router = express.Router();
 const hubController = require('../controllers/hubController');
 
 router.post('/', hubController.createHub);
-router.get('/:roomCode', hubController.getHub);
+router.post('/join', hubController.joinHub); // New Logic
 
 module.exports = router;

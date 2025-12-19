@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// Ensure this matches your server port (8000 based on your index.js)
 const API_URL = 'http://localhost:5000/api/hubs';
 
 export const createHub = async (name) => {
@@ -12,11 +11,13 @@ export const createHub = async (name) => {
   }
 };
 
-export const getHub = async (roomCode) => {
+// NEW: Using POST to validate code and get Role
+export const joinHub = async (code) => {
   try {
-    const response = await axios.get(`${API_URL}/${roomCode}`);
+    // We send { code: "1234" } to the backend
+    const response = await axios.post(`${API_URL}/join`, { code });
     return response.data;
   } catch (error) {
-    throw error.response?.data?.message || "Hub not found";
+    throw error.response?.data?.message || "Invalid Room or Admin Code";
   }
 };

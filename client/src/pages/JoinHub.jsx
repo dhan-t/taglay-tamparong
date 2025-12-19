@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createHub, getHub } from '../services/hubService';
+import { createHub, joinHub } from '../services/hubService'; // Import joinHub
 
 const JoinHub = () => {
-  const [isJoin, setIsJoin] = useState(true); // Toggle between Join and Create
+  const [isJoin, setIsJoin] = useState(true); 
   const [inputVal, setInputVal] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -13,19 +13,24 @@ const JoinHub = () => {
     setError('');
     
     try {
+      let hubData;
+      
       if (isJoin) {
-        // JOIN LOGIC
-        const hub = await getHub(inputVal);
-        // Save to local storage for "session" persistence
-        localStorage.setItem('currentHub', JSON.stringify(hub)); 
-        navigate(`/hub/${hub.roomCode}`);
+        // JOIN LOGIC: Uses the new 'joinHub' service
+        hubData = await joinHub(inputVal); 
       } else {
         // CREATE LOGIC
-        const newHub = await createHub(inputVal);
-        localStorage.setItem('currentHub', JSON.stringify(newHub));
-        navigate(`/hub/${newHub.roomCode}`);
+        hubData = await createHub(inputVal);
       }
+
+      // SAVE SESSION: Now includes 'role' (manager/staff)
+      localStorage.setItem('currentHub', JSON.stringify(hubData)); 
+      
+      // Redirect
+      navigate(`/hub/${hubData.roomCode}`);
+
     } catch (err) {
+      console.error(err);
       setError(err.toString());
     }
   };
@@ -35,7 +40,6 @@ const JoinHub = () => {
       <div className="w-full max-w-md bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700">
         <h1 className="text-3xl font-bold text-center mb-6 text-blue-400">QuickTask</h1>
         
-        {/* Toggle Tabs */}
         <div className="flex mb-6 bg-gray-700 rounded p-1">
           <button 
             className={`flex-1 py-2 rounded ${isJoin ? 'bg-blue-600' : 'hover:bg-gray-600'}`}
@@ -51,19 +55,17 @@ const JoinHub = () => {
           </button>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm text-gray-400 mb-1">
-              {isJoin ? 'Enter 4-Digit Room PIN' : 'Enter Event Name'}
+              {isJoin ? 'Enter Room PIN or Admin Code' : 'Enter Event Name'}
             </label>
             <input
-              type={isJoin ? "text" : "text"}
+              type="text"
               className="w-full p-3 bg-gray-900 border border-gray-600 rounded focus:border-blue-500 outline-none transition"
               placeholder={isJoin ? "e.g. 3790" : "e.g. Wedding Buffet"}
               value={inputVal}
               onChange={(e) => setInputVal(e.target.value)}
-              maxLength={isJoin ? 4 : 30}
               required
             />
           </div>

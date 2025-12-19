@@ -12,11 +12,12 @@ const taskSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'completed'],
+    // UPDATE THIS LINE: Add 'in-progress'
+    enum: ['pending', 'in-progress', 'completed'], 
     default: 'pending'
   },
   proof: {
-    type: String, // Text input for "Proof of Work"
+    type: String,
     default: ''
   },
   assignedTo: {
