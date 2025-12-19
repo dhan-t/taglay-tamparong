@@ -1,72 +1,140 @@
-QuickTask ⚡
-QuickTask is a high-performance, ephemeral task management system designed for fast-paced, real-time coordination. Built for the Taglay 2025 webinar, it eliminates the friction of traditional project management tools by removing the need for accounts and permanent data storage.
+QuickTask ⚡ | Taglay 2025
 
-🚀 Purpose of Development
-Developed specifically for Taglay 2025, QuickTask serves as a demonstration of a modern MERN stack application focusing on:
+QuickTask is a high-performance, ephemeral task management system designed for fast-paced, real-time coordination. Built as a specialized demonstration for the Taglay 2025 webinar, it removes the friction of traditional project management tools by eliminating permanent accounts and complex setup.
 
-Zero-Friction UX: No signups or logins; instant access via PIN.
+🚀 PURPOSE OF DEVELOPMENT
 
-Real-Time State Sync: Immediate feedback across all connected clients.
+Developed specifically for Taglay 2025, QuickTask demonstrates a modern MERN stack application with a focus on:
 
-Ephemeral Data: Hubs are designed to be temporary, serving as a "digital clipboard" for short-term events.
+• ⚡ Zero-Friction UX
+No signups or logins. Instant access using a 4-digit PIN.
 
-🛠 Tech Stack
-Frontend: React.js with Vite.
+• 🔄 Real-Time State Sync
+Immediate updates across all connected clients via MongoDB.
 
-Styling: Tailwind CSS (Liquid Glass/Glassmorphism aesthetic).
+• ⏳ Ephemeral Data
+Hubs function as a temporary “digital clipboard” and exist only for the duration of the event.
 
-Animation: Framer Motion.
+• ✅ Proof of Work
+A verification protocol requiring staff to submit completion notes for critical tasks.
 
-Backend: Node.js & Express.
+🛠 TECH STACK
 
-Database: MongoDB Atlas.
+Frontend : React.js (Vite)
+Styling : Tailwind CSS (Liquid Glass aesthetic)
+Animation : Framer Motion
+Backend : Node.js + Express
+Database : MongoDB Atlas
+API : Axios
 
-State Management: Context API / Local State with Axios for API communication.
+📖 KEY FEATURES
 
-📖 Features
-Three-Way Access: Dedicated entry points for Staff, Managers, and Hub Creation.
+• 🎛 Three-Way Access Toggle
+Separate entry paths for Staff, Managers, and Hub Creation.
 
-Verification Protocol: Staff must provide "Proof of Work" notes to complete critical tasks.
+• 🧾 Verification Protocol
+Mandatory completion notes for accountability.
 
-Visual Progress: Real-time progress bars and status badges.
+• 📊 Visual Progress Tracking
+Real-time progress bars and dynamic status badges.
 
-Sandbox Mode: An interactive tutorial for users to test the UI without database persistence.
+• 🧪 Sandbox Mode
+Interactive tutorial environment using local state only (no database writes).
 
-🛠 Installation & Setup
-Follow these steps to run the project on your own machine after forking.
+🛠 INSTALLATION & SETUP
 
-1. Prerequisites
-Node.js (v18+ recommended)
+Follow these steps to run the project locally after forking the repository.
 
-MongoDB Atlas Account (or local MongoDB)
+1️⃣ PREREQUISITES
 
-2. Clone the Repository
-Bash
+• Node.js (v18+ recommended)
+• MongoDB Atlas account
+
+2️⃣ CLONE THE REPOSITORY
 
 git clone https://github.com/YOUR_USERNAME/taglay-tamparong.git
+
 cd taglay-tamparong
-3. Backend Setup
-Navigate to the server directory: cd server
 
-Install dependencies: npm install
+3️⃣ BACKEND SETUP
 
-Create a .env file in the server folder:
+Navigate to the server folder:
 
-Code snippet
+cd server
+
+Install dependencies:
+
+npm install
+
+Create a .env file inside the server directory with the following content:
 
 PORT=5000
 MONGODB_URI=your_mongodb_connection_string
-Start the server: npm run dev
 
-4. Frontend Setup
-Navigate to the client directory: cd ../client
+Start the backend server:
 
-Install dependencies: npm install
+npm run dev
 
-Start the development server: npm run dev
+4️⃣ FRONTEND SETUP
 
-5. Network Access (Crucial)
-If using MongoDB Atlas, ensure you have whitelisted your IP address or set it to 0.0.0.0/0 (Allow Access From Anywhere) in the MongoDB Atlas Network Access settings to avoid connection errors.
+Navigate to the client folder:
 
-👨‍💻 Author
+cd ../client
+
+Install dependencies:
+
+npm install
+
+Start the frontend development server:
+
+npm run dev
+
+5️⃣ NETWORK ACCESS (IMPORTANT)
+
+If using MongoDB Atlas, make sure your IP address is whitelisted under Network Access.
+
+For testing purposes, you may temporarily allow all IPs:
+
+0.0.0.0/0
+
+Failure to do this may result in database connection errors.
+
+📁 FOLDER STRUCTURE
+
+src/
+├─ components/
+│ ├─ ui/ → Glassmorphism atomic components
+│ ├─ HubStats.jsx → Real-time progress visualizer
+│ └─ TutorialOverlay.jsx → Interactive popup guide
+│
+├─ pages/
+│ ├─ Landing.jsx → Two-column hero & feature highlights
+│ ├─ JoinHub.jsx → 3-way access control
+│ ├─ Dashboard.jsx → Main coordination engine
+│ ├─ TaskDetails.jsx → Proof-of-work submission
+│ └─ TutorialPage.jsx → Sandbox environment with "Go Back" logic
+│
+└─ App.jsx → Router configuration
+
+🔒 SECURITY & GIT BEST PRACTICES
+
+Ensure your .gitignore file exists to prevent pushing sensitive data.
+
+Ignore the following:
+
+node_modules/
+client/node_modules/
+server/node_modules/
+
+.env
+server/.env
+
+client/dist/
+
+.DS_Store
+
+👨‍💻 AUTHOR
+
 Dhan-T
+Computer Science Student (ML Specialization)
+Developed for Taglay 2025
