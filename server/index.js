@@ -1,74 +1,42 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
-
-const bodyParser = require("body-parser");
-const jsonParser = bodyParser.json();
-
 const connectDB = require("./config/db");
 
-const userRoutes = require("./routes/userRoutes");
-const articleRoutes = require("./routes/articleRoutes");
+// Import QuickTask Routes
+const hubRoutes = require('./routes/hubRoutes');
+const taskRoutes = require('./routes/taskRoutes');
 
 const app = express();
 
-// Database Connection
+// 1. Database Connection
 connectDB();
 
-app.use(express.json());
+// 2. Middleware
+app.use(express.json()); // Replaces body-parser (built-in since Express 4.16)
+app.use(express.urlencoded({ extended: true }));
 
-//Middleware
-app.use(jsonParser);
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+// 3. CORS Configuration (Simplified for Vercel/Dev)
+app.use(cors({
+  origin: "*", 
+  methods: ["", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
-const corsOptions = {
-  origin: "*", // Allow all origins
-  credentials: true, // Allow credentials
-  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-  methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-  preflightContinue: false,
-  optionsSuccessStatus: 204, // For legacy browser support
-};
-app.options("", cors(corsOptions)); // Pre-flight request for all routes
-app.use(cors(corsOptions));
-
-// Curb Cores Error by adding a header here
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-  );
-  next();
+// 4. Routes (QuickTask Specific)
+app.get("/", (req, res) => {
+  res.send("QuickTask API is Running"); // Simple health check
 });
 
-// Routes
-app.use("/api/users", userRoutes);
-app.use("/api/articles", articleRoutes);
+app.use('/api/hubs', hubRoutes);
+app.use('/api/tasks', taskRoutes);
 
-//Getting UI
-// if (process.env.NODE_ENV === "production") {
-//     const root = path.join(__dirname, '../robles-front-end/dist');
-//     app.use(express.static(root));
-//     app.all('/{*any}', (req, res, next) => {
-//         res.sendFile(path.join(root, 'index.html'));
-//     })
-//     // app.get('*', (req, res) => {
-//         // res.sendFile(path.join(root, 'index.html'));
-//     // });
-// }
-
-// Error Handling
+// 5. Error Handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ message: "Server Error" });
+  res.status(500).json({ message: "Server Error", error: err.message });
 });
 
+// 6. Start Server
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
